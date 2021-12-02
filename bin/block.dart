@@ -11,6 +11,7 @@ class Block {
     this.data = utf8.encode(data);
     this.hash = sha256.convert(this.data);
     this.timeStamp = DateTime.now();
+    calculateValidHash();
   }
 
   Block.withHash(String data, Digest hash) {
@@ -18,13 +19,11 @@ class Block {
     this.hash = sha256.convert(this.data);
     this.previousHash = hash;
     this.timeStamp = DateTime.now();
+    calculateValidHash();
   }
 
   bool isHashValid(Digest hash) {
-    return ((hash.bytes[0] == '2'.codeUnitAt(0)) &&
-        (hash.bytes[1] == '1'.codeUnitAt(0)) &&
-        (hash.bytes[2] == '0'.codeUnitAt(0)) &&
-        (hash.bytes[3] == '4'.codeUnitAt(0)));
+    return hash.toString().startsWith('0' * 3);
   }
 
   void calculateValidHash() {
@@ -32,15 +31,11 @@ class Block {
     int nonce = 0;
 
     while (!isHashValid(hash)) {
-      Digest temp = hash;
-
-      for (int i = 0; i < nonce.toString().length; i++) {
-        temp.bytes.add(nonce.toString().codeUnitAt(0));
-        nonce++;
-      }
-      print(hash);
-      hash = temp;
+      String temp = this.hash.toString() + nonce.toString();
+      hash = sha256.convert(utf8.encode(temp));
+      nonce++;
     }
+    this.hash = hash;
   }
 
   void fromString(String input) {

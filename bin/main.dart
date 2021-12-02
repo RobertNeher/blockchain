@@ -17,8 +17,7 @@ void main(List<String> args) {
   print(bc.length());
 
   for (Block block in bc.getBlocks()) {
-    print(block.toString());
-    // print(
-    //     '${block.data}\t${block.timeStamp}\t${block.hash}\t${block.previousHash}');
+    print(
+        '${String.fromCharCodes(block.data)}\t${block.timeStamp}\t${block.hash}\t${block.previousHash}');
   }
 }

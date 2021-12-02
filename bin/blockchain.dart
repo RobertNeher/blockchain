@@ -28,8 +28,7 @@ class BlockChain {
   }
 
   void add(String data) {
-    Digest previousHash = this.getLastHash();
-    Block block = Block.withHash(data, previousHash);
+    Block block = Block.withHash(data, getLastHash());
     blocks.add(block);
   }
 
