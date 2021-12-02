@@ -19,6 +19,13 @@ class BlockChain {
     return genesisBlock;
   }
 
+  Block search(String hash) {
+    for (Block block in blocks) {
+      if (block.compare(hash)) return block;
+    }
+    return Block('');
+  }
+
   int length() {
     return blocks.length;
   }
