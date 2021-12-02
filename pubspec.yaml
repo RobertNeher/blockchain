@@ -10,7 +10,7 @@ environment:
 dependencies:
   crypto:
   convert:
-  http:
+  intl:
 
 dev_dependencies:
   lints: ^1.0.0
