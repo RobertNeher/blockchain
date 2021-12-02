@@ -26,6 +26,13 @@ class Block {
     return hash.toString().startsWith('0' * 3);
   }
 
+  bool compare(String input) {
+    if (input.length != 64) {
+      return false;
+    }
+    return (input == hash.toString());
+  }
+
   void calculateValidHash() {
     Digest hash = Digest([]);
     int nonce = 0;
@@ -40,7 +47,7 @@ class Block {
 
   void fromString(String input) {
     for (int i = 0; i < input.length; i++) {
-      data.add(input[i].codeUnitAt(i));
+      data.add(input.codeUnitAt(i));
     }
   }
 
